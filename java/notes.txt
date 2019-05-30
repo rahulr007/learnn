@@ -1,0 +1,616 @@
+Question 1:
+import java.util.*;
+import java.text.*;
+public class Main8 {
+
+                public static void main(String[] args) {
+                                // TODO Auto-generated method stub
+                                Scanner sc=new Scanner(System.in);
+                                HashMap hm=new HashMap();
+                                for(int i=0;i<=10;i++)
+                                {
+                                                SimpleDateFormat sd= new SimpleDateFormat("dd-MM-yyyy");
+                                                String name=sc.next();
+                                                String dob=sc.next();
+                                                try {
+                                                                Date d1=sd.parse(dob);
+                                                                hm.put(name, d1);                                                                                                                          
+                                                } catch (ParseException e) {
+                                                                // TODO Auto-generated catch block
+                                                                System.out.println("Invalid input");
+//                                                            e.printStackTrace();
+                                                }
+                                                
+                                }
+                                UserMainCode8.displayEligible(hm);
+                                
+                }
+
+}
+import java.util.*;
+import java.text.*;
+public class UserMainCode8 {
+                
+
+                public static void displayEligible(HashMap hm)
+                {
+                Set names=hm.keySet();
+                ArrayList al= new ArrayList();
+                Iterator itr= names.iterator();
+                Date d;
+                while(itr.hasNext())
+                {
+                                Object o=itr.next();
+                                String name=(String)o;
+                                d = (Date)hm.get(o);
+                                Calendar c=Calendar.getInstance();
+                                c.setLenient(false);
+                                c.setTime(d);
+                                int years=c.get(Calendar.YEAR);
+                                Calendar current =c.getInstance();
+                                int y2=current.get(Calendar.YEAR);
+                                if((y2-years)>=21)
+                                {
+                                                al.add(name);
+                                }              
+                                
+                }
+                
+                System.out.println("Eligible Candidates \n"+al);
+                }
+}
+
+
+Question 2:
+
+import java.util.*;
+public class Main9 {
+
+    public static void main(String[] args) {
+       // TODO Auto-generated method stub
+       Scanner sc=new Scanner(System.in);
+       ArrayList al=new ArrayList();
+       for(int i=0;i<=2;i++)
+       {
+           String name=sc.next();
+           al.add(name);
+       }
+       UserMainCode9.displaySum(al);
+    }
+
+}
+
+import java.util.*;
+public class UserMainCode9 {
+    public static void displaySum(ArrayList al)
+    {
+       HashMap hm=new HashMap();
+       Iterator itr=al.iterator();
+       while(itr.hasNext())
+       {
+           int sum=0;
+           Object o= itr.next();
+           String name=(String)o;    
+           for(int i=0;i<name.length();i++)
+           {
+           if(Character.isDigit(name.charAt(i)))
+           {
+             String s=Character.toString(name.charAt(i));
+             Integer i1=Integer.parseInt(s);
+             int val=(int)i1;
+             sum+=val;
+             
+           }
+           }   
+           hm.put(name, sum);
+       }
+       System.out.println(hm);
+    }
+}
+
+________________________________________________
+
+1.	Write a program to read a sentence in string variable and convert the first letter of each word to capital case. 
+
+         Sample Input:
+Now is the time to act!
+Sample Output:
+Now Is The Time To Act!
+
+2.	Write a program to read a string and a character, and reverse the string and convert it in a format such that each character is separated by the given character
+
+Sample Input:
+Rabbit
+-
+Sample Output:
+t-i-b-b-a-R
+
+
+3.	Write a program to read  two String variables in DD-MM-YYYY.Compare the two dates and return the older date in 'MM/DD/YYYY' format.
+
+Sample Input 1:
+05-12-1987
+8-11-2010
+
+Sample Output 1:
+12/05/1987
+
+
+    Sample Input 1:
+education
+3
+   Sample Output 1:
+eduion
+
+
+2.   Take two ArrayList’s as below and merge them into new ArrayList and sort out new ArrayList and display elements (NOTE: Use Collections.sort())
+
+       ArrayList1  = {1,17,11,19,21}
+       ArrayList2   =  {5,2,7,6,20}
+
+3.  Create a Player POJO class having following fields and create 5 Player Objects and display them in ascending order according to Player score (USE Comparator)
+
+         Player ID    ,    Player Name ,    Player Score
+
+4.  Accept  a date string in dd/mm/yyyy format, write a program to calculate the day which falls on the same date next year.
+
+
+________________________________________________________________________
+
+PFA
+
+Employee
+import java.util.*;
+
+public class Employee 
+{
+	 int empno;
+	 String empdesg;
+	 int empsal;
+	 String empcity;
+ 
+	public Employee(int empno, String empdesg, int empsal, String empcity) {
+		super();
+		this.empno = empno;
+		this.empdesg = empdesg;
+		this.empsal = empsal;
+		this.empcity = empcity;
+	}
+	
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getEmpdesg() {
+		return empdesg;
+	}
+	public void setEmpdesg(String empdesg) {
+		this.empdesg = empdesg;
+	}
+	public int getEmpsal() {
+		return empsal;
+	}
+	public void setEmpsal(int empsal) {
+		this.empsal = empsal;
+	}
+	public String getEmpcity() {
+		return empcity;
+	}
+	public void setEmpcity(String empcity) {
+		this.empcity = empcity;
+	}
+	public static void main(String[] args)
+	{
+		ArrayList<Employee> al=new ArrayList<Employee>();
+		Employee emp1=new Employee(2222,"manager",4534,"chennai");
+		Employee emp2=new Employee(5555,"clerk",67534,"chennai");
+		Employee emp3=new Employee(3333,"supervisor",5534,"chennai");
+		Employee emp4=new Employee(1111,"teacher",3534,"chennai");
+		Employee emp5=new Employee(4444,"sales representative",1534,"chennai");
+		al.add(emp1);
+		al.add(emp2);
+		al.add(emp3);
+		al.add(emp4);
+		al.add(emp5);
+		//Collections.sort(al);
+		for(int i=0;i<al.size();i++)
+		{
+			Employee e=al.get(i);
+			System.out.println(e.getEmpno()+"-->"+e.getEmpdesg()+"-->"+e.getEmpsal()+"-->"+e.getEmpcity());
+		}
+	}
+
+	
+	
+}
+
+
+Sample24
+import java.util.*;
+public class Sample24 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		String ip= sc.next();
+		StringTokenizer st= new StringTokenizer(ip,".");
+		int count=0;
+		
+			if(ip.matches("[0-9]{1,3}[.]{1}[0-9]{1,3}[.]{1}[0-9]{1,3}[.]{1}[0-9]{1,3}"))
+			{
+				while(st.hasMoreTokens())
+				{
+				String s=st.nextToken();
+				 
+				int n=0;
+				try
+				{
+				n=Integer.parseInt(s);
+				}
+				catch(NumberFormatException ne)
+				{
+					System.out.println("invalid ip address");
+				}
+				if(n>=0 && n<=255)
+				{
+					count++;
+				}
+					
+			}
+			if(count==4)
+			{
+				System.out.println("valid ip address");
+			}
+			else
+			{
+				System.out.println("invalid");
+			}
+				
+		}
+			else
+			{
+				System.out.println("invalid");
+			}
+	}
+
+}
+
+
+
+Sample 23
+import java.util.*;
+public class Sample23 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		String str=sc.next();
+		StringTokenizer st=new StringTokenizer(str,".");
+		if(st.countTokens()==4)
+		{
+			//boolean boo=false;
+			int count=0;
+		
+		while(st.hasMoreTokens())
+		{
+			String s=st.nextToken();
+			int n=0;
+			try
+			{
+			n=Integer.parseInt(s);
+			}
+			catch(NumberFormatException ne)
+			{
+				System.out.println("invalid ip address");
+			}
+			if(n>=0 && n<=255)
+			{
+				count++;
+			}
+				
+		}
+		if(count==4)
+		{
+			System.out.println("valid ip address");
+		}
+		else
+		
+		System.out.println("invalid ip address");
+	}else
+		System.out.println("invalid ip address");
+	}
+
+}
+
+
+
+Sample 22
+import java.util.Scanner;
+
+public class Sample22 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		String s=sc.next();
+		String s1=sc.next();
+		if(s.matches("(cts)[-]{1}[a-z]{3}[-]{1}[0-9]{4}"))
+				{
+			//System.out.println("Valid");
+			String str1[]=s.split("-");
+			String str2=s1.substring(0,3);
+			if(str1[1].equals(str2))
+			{
+				System.out.println("Valid");
+			}
+			else
+			{
+				System.out.println("Invalid");
+			}
+				}
+		else
+		{
+			System.out.println("Invalid");
+		}
+
+	}
+
+}
+
+
+Sample 21
+import java.util.*;
+public class Sample21 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		if(s.matches("[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}"))
+		{
+			System.out.println("Valid");
+		}
+		else
+		{
+			System.out.println("Invalid");
+		}
+
+	}
+
+}
+
+Sample 20
+
+public class Sample20 {
+	public static void main(String[] args) {
+		
+		String str= "surya$wel$co$me";
+		if(str.matches(".*[$#*]{1}.*")) {
+			System.out.println("valid");
+			
+		}
+		else
+			System.out.println("invalid");
+	}
+
+}
+
+Sample 1
+
+public class Sample1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String s= new String("ct1s-abc1");
+		if(s.matches(".*[0-9]{1,}.*"))
+				System.out.println("Valid");
+		else {
+			System.out.println("InValid");
+			
+		}
+	}
+}
+
+
+Main 19
+import java.util.*;
+import java.text.*;
+public class Main19 {
+	public static void main(String[] args)throws ParseException
+	{
+		ArrayList al=new ArrayList();
+		String option;
+		Scanner s=new Scanner(System.in);
+		do
+		{
+		System.out.println("Enter the date");
+		String str=s.next();
+		al.add(str);
+		System.out.println("Do you want to continue");
+		option=s.next();
+		}while(option.equals("yes"));
+		ArrayList res=UserMainCode19.getDates(al);
+		System.out.println(res);
+}
+}
+Main 18
+import java.util.*;
+import java.text.*;
+public class Main18 {
+
+	public static void main(String[] args) throws ParseException {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		String s=sc.next();
+		int month=sc.nextInt();
+		SimpleDateFormat sd=new SimpleDateFormat("dd-MM-yyyy");
+		sd.setLenient(false);
+		Date e=sd.parse(s); 
+		Calendar c=Calendar.getInstance();
+		c.setTime(e);
+		c.add(Calendar.MONTH,month);
+		String result=UserMainCode18.getMonthName(c);
+		System.out.println(result);
+		
+		
+
+	}
+
+}
+
+Main 17
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+public class Main17 {
+
+	public static void main(String[] args)  {
+		// TODO Auto-generated method stub
+		try
+		{
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
+        sd.setLenient(false);
+        Date d = sd.parse(s);
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(d);
+        Calendar c2 = Calendar.getInstance();
+        int diff = UserMainCode17.getYearDiff(c1,c2);
+        System.out.println(diff);
+		}
+		catch(ParseException pe)
+		{
+			System.out.println("Invalid date format");
+		}
+        
+	}
+
+}
+
+UserMainCode19
+import java.util.*;
+import java.text.*;
+public class UserMainCode19 {
+	public static ArrayList getDates(ArrayList al) throws ParseException
+	{
+		ArrayList res=new ArrayList();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		sdf.setLenient(false);
+		Iterator itr=al.iterator();
+		while(itr.hasNext())
+		{
+			Object o=itr.next();
+			String s=(String)o;
+			Date d=sdf.parse(s);
+			Calendar c=Calendar.getInstance();
+			c.setTime(d);
+			int year=c.get(Calendar.YEAR);
+			if(year>2000)
+			{
+				res.add(s);
+			}
+		}
+		return res;
+	}
+}
+
+UserMainCode18
+import java.util.*;
+import java.text.*;
+public class UserMainCode18 {
+public static String getMonthName(Calendar c) {
+	SimpleDateFormat sd=new SimpleDateFormat("MMMM");
+	Date e=c.getTime();
+	String s=sd.format(e);
+	return s;
+	
+}
+}
+
+UserMainCode17
+import java.util.*;
+public class UserMainCode17 {
+          public static int getYearDiff(Calendar c1, Calendar c2)
+          {
+        	  int x = c1.get(Calendar.YEAR);
+        	  int y = c2.get(Calendar.YEAR);
+        	  int yeardiff;
+        	  if(x>y)
+        	  {
+        	   yeardiff = x-y;}
+        	  else
+        	  {
+        		   yeardiff=y-x;
+        	  }
+        	  System.out.println(yeardiff);
+        	  int m1= c1.get(Calendar.MONTH);
+        	  int m2= c2.get(Calendar.MONTH);
+        	  System.out.println(m1-m2);
+        	  return (yeardiff*12)+(m1-m2);
+        	 
+          }
+	
+	}
+
+
+
+Sample 19
+import java.util.*;
+import java.text.*;
+public class Sample19 {
+
+	public static void main(String[] args) throws ParseException {
+		Scanner sc=new Scanner(System.in);
+		String str=sc.next();
+		SimpleDateFormat sd= new SimpleDateFormat("dd-MM-yyyy");
+		Date d=sd.parse(str);
+		SimpleDateFormat sd1=new SimpleDateFormat("EEE");
+        String s=sd1.format(d);
+        System.out.println(s);
+	}
+
+}
+
+Sample 18
+import java.util.*;
+import java.text.*;
+public class sample18 {
+
+	public static void main(String[] args) throws ParseException {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		String dt=sc.next();
+		SimpleDateFormat sd= new SimpleDateFormat("dd-MM-yyyy");
+		sd.setLenient(false);
+		Date d=sd.parse(dt);
+		Calendar c= Calendar.getInstance();
+		c.setTime(d);
+		System.out.println(c.getTime());
+		
+		
+		
+	}
+
+}
+  
+Sample 17
+import java.util.*;
+import java.text.*;
+public class sample17 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Calendar c=Calendar.getInstance();
+		System.out.println(c.getTime());
+		int x=(c.get(Calendar.YEAR));
+		c.add(Calendar.MONTH, -4);
+		System.out.println(c.getTime());
+		
+		
+	}
+
+}
+
