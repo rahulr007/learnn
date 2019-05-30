@@ -1,0 +1,1813 @@
+Part 2
+String Buffer, String Builder, String Tokenizer, String Splitting / Session 1
+
+1.
+What is the output of this program?
+
+class output {
+public static void main(String args[])
+{
+StringBuffer s1 = new StringBuffer("Hello World");
+s1.insert(6 , "Good ");
+System.out.println(s1);
+}
+}
+
+
+Answer   Hello Good World
+
+2.
+What is the string contained in s after following lines of code?
+StringBuffer s = new StringBuffer(“Hello”);
+s.deleteCharAt(0);
+ 
+ello
+
+
+3.
+Which of these method of class StringBuffer is used to reverse sequence of characters?
+
+
+            reverse()
+
+4.
+Predict the output of the following code
+import java.util.StringTokenizer;
+class try1 {
+public static void main(String a[]){
+String msg = "http://10.123.43.67:80/";
+StringTokenizer st = new StringTokenizer(msg,"://.");
+System.out.println(st.countTokens());
+}
+}
+
+
+Answer:  6
+
+5.
+What is the output of this program?
+
+class output {
+public static void main(String args[])
+{
+StringBuffer s1 = new StringBuffer("Hello");
+s1.deleteCharAt(1);
+System.out.println(s1);
+}
+}
+Answer   Hllo 
+
+
+6. Which package includes StringTokenizer that tokenizes a string into independent words?
+                  java.util
+
+7.
+Predict the output of the following code
+import java.util.StringTokenizer;
+public class MyTokenCount {
+public static void main(String a[]){
+String msg = "This program gives sample code for String Tokenizer";
+StringTokenizer st = new StringTokenizer(msg," ",true);
+System.out.println(st.countTokens());
+}
+}
+
+
+Answer   15
+
+8.
+The following classes are used create strings that can be modified after they are created.
+1) String
+2) StringBuffer
+3) StringBuilder
+ 
+1 and 2
+
+
+9.
+Which of these method of class StringBuffer is used to extract a substring from a String object?
+ 
+substring()
+
+
+
+10.
+Which of these method of class String is used to compare two String objects for their equality?
+
+
+              equals() 
+
+11. Which of the following statement is correct?
+               
+
+                    reverse() method reverses all characters.
+
+12.
+Predict the output of the following code
+import java.util.StringTokenizer;
+class try1 {
+public static void main(String a[]){
+String msg = "http://10.123.43.67:80/";
+StringTokenizer st = new StringTokenizer(msg,"//");
+while(st.hasMoreTokens()){
+System.out.print(st.nextToken()+" ");
+}
+System.out.println();
+}
+}
+
+
+Answer    http: 10.123.43.67:80
+
+
+13. What is the output of this program?
+
+class output {
+public static void main(String args[])
+{
+StringBuffer c = new StringBuffer("Hello");
+c.delete(0,2);
+System.out.println(c);
+}
+}
+
+Answer   llo
+
+14
+What will be s2 contain after following lines of code?
+StringBuffer s1 = “one”;
+StringBuffer s2 = s1.append(“two”);
+
+
+Answer   onetwo
+
+15
+Predict the output of the following code
+import java.util.StringTokenizer;
+class try1 {
+public static void main(String a[]){
+String msg = "http://10.123.43.67:80/";
+StringTokenizer st = new StringTokenizer(msg,"://");
+while(st.hasMoreTokens()){
+System.out.print(st.nextToken()+" ");
+}
+System.out.println();
+}
+}
+
+
+Answer http 10.123.43.67 80
+
+16
+______ class is the same as StringBuffer class except that it is non-synchronized.
+
+                         StringTokenizer
+
+17.
+Predict the output of the following code
+import java.util.StringTokenizer;
+public class MyTokenCount {
+public static void main(String a[]){
+String msg = "This program gives sample code for String Tokenizer";
+StringTokenizer st = new StringTokenizer(msg," ");
+System.out.println(st.countTokens());
+}
+}
+Answer  8
+
+
+18.
+Which of these method of class StringBuffer is used to concatenate a string to the end of invoking string?
+
+                             Append();
+
+19.
+What is the output of this program?
+
+class output {
+public static void main(String args[])
+{
+char c[]={'a', '1', 'b' ,' ' ,'A' , '0'};
+for (int i = 0; i < 5; ++i)
+{
+if(Character.isDigit(c[i]))
+System.out.println(c[i]+" is a digit");
+if(Character.isWhitespace(c[i]))
+System.out.println(c[i]+" is a Whitespace character");
+if(Character.isUpperCase(c[i]))
+System.out.println(c[i]+" is an Upper case Letter");
+if(Character.isLowerCase(c[i]))
+System.out.println(c[i]+" is a lower case Letter");
+i=i+3;
+}
+}
+}
+
+Answer  
+a is a lower case Letter
+
+A is a upper case Letter
+
+
+
+20
+Which of these method of class StringBuffer is used to find the length of current character sequence?
+
+
+
+                                                     length()
+
+21  What is the output of this program?
+
+class output {
+public static void main(String args[])
+{
+StringBuffer s1 = new StringBuffer("Hello");
+StringBuffer s2 = s1.reverse();
+System.out.println(s2);
+}
+}
+Answer    olleH 
+
+22.
+What is the output of this program?
+
+class output {
+public static void main(String args[])
+{
+StringBuffer c = new StringBuffer("Hello");
+StringBuffer c1 = new StringBuffer(" World");
+c.append(c1);
+System.out.println(c);
+}
+}
+
+
+Answer   Hello World
+
+23
+What is the output of this program?
+
+class Output {
+public static void main(String args[])
+{
+StringBuffer c = new StringBuffer("Hello");
+System.out.println(c.length());
+}
+}
+
+
+
+Answer   5
+
+24
+Which of these is an incorrect statement?
+
+              StringBuffer class is used to store string in a buffer for later use.
+
+
+25
+What is the output of this program?
+
+class output {
+public static void main(String args[])
+{
+String a = "hello i love java";
+System.out.println(a.indexOf('i')+" "+a.indexOf('o')+" "+a.lastIndexOf('i')+" "+a.lastIndexOf('o'));
+}
+}
+
+ 
+6 4 6 9
+
+
+
+26
+Predict the output of the following code
+import java.util.StringTokenizer;
+class try1 {
+public static void main(String a[]){
+String msg = "http://10.123.43.67:80/";
+StringTokenizer st = new StringTokenizer(msg,"://.");
+while(st.hasMoreTokens()){
+System.out.print(st.nextToken()+" ");
+}
+System.out.println();
+}
+}
+Answer     http 10 123 43 67 80
+
+
+27
+Which of these class is used to create an object whose character sequence is mutable?
+                              StringBuffer()
+
+
+28
+Which of the following are incorrect form of StringBuffer class constructor?
+                                StringBuffer(int size , String str)
+
+
+29.
+Which of these method of class String is used to extract a single character from a String object?
+
+                             charAt() 
+
+30.
+What is the output of this program?
+
+class output {
+public static void main(String args[])
+{
+StringBuffer s1 = new StringBuffer("Hello");
+s1.setCharAt(1,'x');
+System.out.println(s1);
+}
+}
+
+ 
+Hxllo
+
+
+/ Collections / Generics, Lists /Session 1
+
+
+1.
+Which of these methods deletes all the elements from invoking collection?
+ 
+clear()
+
+
+2.
+Which collection class allows you to grow or shrink its size and provides indexed access to its elements, but whose methods are not synchronized?
+
+ 
+java.util.ArrayList
+
+
+3.
+What is the output of this program?
+import java.util.*;
+class stack {
+public static void main(String args[]) {
+Stack obj = new Stack();
+obj.push(new Integer(3));
+obj.push(new Integer(2));
+obj.pop();
+obj.push(new Integer(5));
+System.out.println(obj);
+}
+}
+ 
+[3, 5]
+4.	
+
+What do you do with a collection?
+
+         All of the listed options
+
+5. What is the output of this program?
+import java.util.*;
+class Array {
+public static void main(String args[]) {
+int array[] = new int [5];
+for (int i = 5; i > 0; i--)
+{
+array[5-i] = i;
+}
+Arrays.fill(array, 1, 4, 8);
+for (int i = 0; i < 5 ; i++)
+{
+System.out.print(array[i]);
+}
+}
+}
+Answer 58881
+
+6. Which of the following statements about the hashcode() method are incorrect?
+1.The value returned by hashcode() is used in some collection classes to help locate objects.
+2. The hashcode() method is required to return a positive int value.
+3. The hashcode() method in the String class is the one inherited from Object.
+4. Two new empty String objects will produce identical hashcodes.
+           
+Answer: 2 and 3
+
+7.
+What is Collection in Java?
+ 
+A group of objects
+
+
+8.
+
+Which statement is true?
+class Test1
+{
+public int value;
+public int hashCode() { return 42; }
+}
+class Test2
+{
+public int value;
+public int hashcode() { return (int)(value^5); }
+}
+
+
+Answer
+class Test2 will not compile.
+
+9.
+Which of these is not a concrete implementation class of a collection ?
+
+                             Array
+
+10.
+Why are generics used?
+
+     
+
+ 
+Generics add stability to your code by making more of your bugs detectable at compile time.
+
+
+11. Which of these interface is not a part of Java’s collection framework?
+                 
+
+ 
+NavigableSet
+
+12. Which of these packages contain all the collection classes?
+
+              java.util
+
+13. Which of these interface is not a part of Java’s collection framework?
+                          SortedList
+
+14.
+Which of these provides a get(int index) method?
+
+                           All
+
+15.
+The root interface of Java Collection framework hierarchy is ______
+                           List / Set
+
+16.
+Which of these type parameters is used for a generic class to return and accept a number?
+ 
+N
+
+
+17.
+What is the output of this program?
+import java.util.*;
+class vector {
+public static void main(String args[]) {
+Vector obj = new Vector(4,2);
+obj.addElement(new Integer(3));
+obj.addElement(new Integer(2));
+obj.addElement(new Integer(5));
+obj.removeAll(obj);
+System.out.println(obj.isEmpty());
+}
+}
+ 
+True
+
+18. Which of these maintain insertion order?
+        All of the listed options 
+
+Collections/generic,list/session2
+
+1.
+What is the default capacity of a ArrayList?
+ 
+10
+
+
+
+
+
+       2.
+      
+What would be the default element to which the ListIterator is pointed for an ArrayList of size n?
+ 
+0 
+
+
+
+3.
+Predict the output of below code
+
+import java.util.*;
+class Collection_iterators {
+public static void main(String args[]) {
+LinkedList list = new LinkedList();
+list.add(new Integer(2));
+list.add(new Integer(8));
+list.add(new Integer(5));
+list.add(new Integer(1));
+Iterator i = list.iterator();
+Collections.reverse(list);
+while(i.hasNext())
+System.out.print(i.next() + " ");
+}
+}
+ 
+1 5 8 2
+
+
+
+
+4.
+Which of these collection class has the ability to grow dynamically?
+ 
+ArrayList
+
+
+5.
+What is the method to obtain the count of elements in ArrayList?
+ 
+count 
+
+
+6. Which of these methods is used to obtain an iterator to the start of collection?
+
+                       iterator()
+
+7.
+What is the count of methods that are present in ListIterator and not in Iterator Interface?
+
+
+                             6
+
+8.
+Predict the output of the following code
+
+import java.util.ArrayList;
+public class MyBasicArrayList {
+public static void main(String[] a){
+ArrayList al = new ArrayList (); 
+//add elements to the ArrayList 
+al.add("JAVA"); 
+al.add("C++"); 
+al.add("PERL"); 
+al.add("PHP"); 
+System.out.println("Element at index 2: "+al.get(2)); 
+System.out.println(al.contains("JAVA")); 
+} 
+} 
+
+Answer  
+
+Element at index 2: PERL
+
+True
+
+9.
+Which of these return type of hasNext() method of an iterator?
+
+            Boolean
+
+10.
+Vector extends which of these?
+
+                    AbstractList
+
+
+11. ArrayList implements which of the following?
+                     
+               All of the listed options
+12.
+Insert the appropriate Code Segment
+import java.util.ArrayList
+import java.util.List
+public class MyClass {
+public static void main(String args[]) {
+// INSERT HERE
+l.add("2");
+l.add("21");
+}
+}
+Answer    List<String> l=new ArrayList<String>(); 
+
+13. How many overloaded versions of add method is available in ArrayList class?
+                        3
+
+14.
+What is the count of total number of methods present in Iterator Interface?
+ 
+3
+
+
+15.
+Mention the count of methods used to remove one or set of elements from ArrayList?
+                 2 
+
+16.
+Predict the output of the following code
+
+public class MyBasicArrayList {
+public static void main(String[] a){
+ArrayList al = new ArrayList (); 
+//add elements to the ArrayList 
+al.add("JAVA"); 
+al.add("C++"); 
+al.add("PERL"); 
+al.add("PHP"); 
+System.out.println(al); 
+} 
+} 
+ 
+[JAVA, C++, PERL, PHP]
+
+
+17.
+Predict the output of the following code
+
+import java.util.ArrayList;
+public class MyBasicArrayList {
+public static void main(String[] a){
+ArrayList al = new ArrayList (); 
+//add elements to the ArrayList 
+al.add("JAVA"); 
+al.add("C++"); 
+al.add("PERL"); 
+al.add("PHP"); 
+al.add(2,"PLAY"); 
+System.out.println(al+" "); 
+System.out.println(al.indexOf("PERL")+" "); 
+System.out.println(al.size()); 
+} 
+} 
+
+[JAVA, C++, PLAY, PERL, PHP]  3 5
+ 
+
+18.
+What is the default capacity of a Vector?
+              10
+
+19. What method would help us add a collection of elements in the middle of arraylist?
+                       addAll(int index, Collection
+              c)
+
+20
+Which of these methods can be used to move to next element in a collection?
+ 
+next()
+
+
+21. Predict the output of below code
+import java.util.*;
+class Collection_iterators {
+public static void main(String args[]) {
+List<Integer> list = new ArrayList<Integer>();
+ListIterator a = list.listIterator();
+if(a.previousIndex()! = -1)
+{
+while(a.hasNext())
+{
+   System.out.print(a.next() + " ");
+{
+}
+else
+{
+System.out.print("EMPTY");
+}
+}
+}
+Answer  -1
+
+
+22.
+Predict the output of below code
+
+import java.util.ArrayList;
+import java.util.Iterator;
+public class ArrayListIterator {
+public static void main(String a[]){
+ArrayList arrl = new ArrayList (); 
+arrl.add("First"); 
+arrl.add("Second"); 
+arrl.add("Third"); 
+arrl.add("Random"); 
+Iterator itr = arrl.iterator(); 
+while(itr.hasNext()){ 
+System.out.print(itr.next()+"\t"); 
+} 
+} 
+} 
+
+ 
+First Second Third Random
+
+	
+
+
+
+23    Is there an iterator to allow programmer to traverse in forward / backward direction?
+              No
+
+24.
+Is there a method in ArrayList to check the emptiness of Arraylist?
+ 
+yes
+
+25. Which of these is synchronized?
+            vector
+
+
+
+
+
+
+Collections / Sets / Session 1
+
+1. Predict the output of the program 
+
+import java.util.Stack;
+public class genericstack <E> {
+    Stack <E> stk = new Stack <E>();
+    public void push(E obj) {
+        stk.push(obj);
+    }
+    public E pop() {
+        E obj = stk.pop();
+        return obj;
+    }
+}
+class Output {
+    public static void main(String args[]) {
+        genericstack <String> gs = new genericstack<String>();
+        gs.push("Hello");
+        System.out.println(gs.pop());
+    }
+}
+
+	Answer:      Compile Time Error 
+
+2.
+You need to store elements in a collection that guarantees that no duplicates are stored and all elements can be accessed in natural order. Which interface provides that capability?
+ 
+java.util.set 
+
+
+
+3. Which statement is true for the class java.util.HashSet?
+	The elements in the collection are guaranteed to be unique.
+
+
+4.
+Which of these is an correct way of defining generic class?
+ 
+class name(T1, T2, …, Tn) { /* … */ }  
+
+
+
+5. Which of these type parameters is used for a generic class to return and accept any type of object?
+	T
+
+6. Predict the output of the program 
+
+import java.util.Stack;
+public class genericstack <E> {
+    Stack <E> stk = new Stack <E>();
+    public void push(E obj) {
+         stk.push(obj);
+    }
+    public E pop() {
+         E obj = stk.pop();
+         return obj;
+   }
+}
+class Output {
+    public static void main(String args[]) {
+        genericstack <Integer> gs = new genericstack<Integer>();
+        gs.push("Hello");
+        System.out.println(gs.pop());
+    }
+}
+Answer:    Compile Time Error
+
+7. Predict the output of the program 
+
+import java.util.Stack; 
+public class genericstack <E> { 
+    Stack <E> stk = new Stack <E>(); 
+    public void push(E obj) { 
+        stk.push(obj); 
+    } 
+    public E pop() { 
+        E obj = stk.pop(); 
+        return obj; 
+    } 
+} 
+class Output { 
+    public static void main(String args[]) { 
+        genericstack <String> gs = new genericstack<String>(); 
+        gs.push("Hello"); 
+        System.out.print(gs.pop() + " "); 
+        genericstack <Integer> gs1 = new genericstack<Integer>(); 
+        gs1.push(36); 
+        System.out.println(gs1.pop()); 
+    } 
+}
+Answer:    
+	Compile Time Error 
+
+SECTION 2
+1.What is the initial capacity of Hashset?
+         16
+2.
+Which interface restricts duplicate elements?
+ 
+Set
+
+
+3.
+How many null elements are allowed in a Set Interface?
+ 
+1 
+
+
+4. An attempt to add null key to a TreeSet will result in ________
+
+ 
+Runtime - NullPointerException
+
+
+5. Which methods are used by HashSet to eliminate duplicates from set for used defined objects?
+	None of the listed options 
+
+6. What does HashSet return when the object is already present?
+             Object
+
+7. Predict the output of the program
+
+import java.util.HashSet;
+public class MyBasicHashSet {
+public static void main(String a[]){
+HashSet hs = new HashSet (); 
+//add elements to HashSet 
+hs.add("first"); 
+hs.add("second"); 
+hs.add("third"); 
+System.out.println(hs); 
+System.out.println(hs.isEmpty()); 
+} 
+}
+Answer:  
+	[third, second, first] FALSE
+
+8. What does the code segment given below do?
+
+import java.util.HashSet;
+public class MyHashSetCopy {
+public static void main(String a[]){
+HashSet hs = new HashSet (); 
+hs.add("first"); 
+hs.add("second"); 
+hs.add("third"); 
+System.out.println(hs); 
+HashSet subSet = new HashSet (); 
+subSet.add("s1"); 
+subSet.add("s2"); 
+hs.addAll(subSet); 
+System.out.println(hs); 
+} 
+}
+Answer: 
+
+ 
+Works fine and adds all elements of subSet in hs.
+
+9. HashSet internally uses?
+	Hashmap
+
+10. What operation is perfomed in the below code snippet?
+public class MyHashSet {
+public static void main(String a[]){
+HashSet hs = new HashSet (); 
+hs.add("first"); 
+hs.add("second"); 
+hs.add("third"); 
+hs.add("apple"); 
+hs.add("rat"); 
+System.out.println(hs); 
+HashSet subSet = new HashSet (); 
+subSet.add("rat"); 
+subSet.add("second"); 
+subSet.add("first"); 
+hs.retainAll(subSet); 
+System.out.println("HashSet content:"); 
+System.out.println(hs); 
+} 
+}
+Answer:  Union
+
+11. Which does not allow to store a null value?
+	TreeSet
+
+12. Which Set implementation is sorted and synchronized?
+	
+	         ConcurrentSkipListSet
+
+
+13Which Set class must be preferred in multi-threading environment, considering performance constraint
+      ConcurrentSkipListSet
+
+14. Which function is used to delete all the elements in a set?
+	Delete
+
+15.
+Which is sorted by natural order?
+ 
+LinkedHashSet
+
+
+16.
+What will be the output of the below code snippet?
+import java.util.HashSet;
+import java.util.Set;
+public class HashSetTest {
+public static void main(String args[]) {
+Set hashSet = new HashSet (); 
+hashSet.add("1"); 
+hashSet.add(null); 
+hashSet.add("null"); 
+System.out.println(hashSet); 
+} 
+}
+Answer:   
+	Compile Time Error 
+
+COLLECTIONS/MAP/SESSION1
+1 Predict the output of the code
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+class Student
+{
+    int rollno;
+    String name, address;
+    public Student(int rollno, String name,
+            String address)
+    {
+        this.rollno = rollno;
+        this.name = name;
+        this.address = address;
+    }
+    public String toString()
+    {
+        return this.rollno + " " + this.name +
+                " " + this.address;
+    }
+}
+class Sortbyroll implements Comparator<Student>
+{
+    public int compare(Student a, Student b)
+    {
+        return a.rollno - b.rollno;
+    }
+}
+class Sortbyname implements Comparator<Student>
+{
+    public int compare(Student a, Student b)
+    {
+        return a.name.compareTo(b.name);
+    }
+}
+// Driver class
+class Main
+{
+    public static void main (String[] args)
+    {
+        ArrayList<Student> ar = new ArrayList<Student>();
+        ar.add(new Student(111, "bbbb", "london"));
+        ar.add(new Student(131, "aaaa", "nyc"));
+        ar.add(new Student(121, "cccc", "jaipur"));
+        Collections.sort(ar, new Sortbyroll());
+        System.out.println(ar.get(1).name);
+        Collections.sort(ar, new Sortbyname());
+        System.out.println(ar.get(2).name);
+    }
+}
+
+
+
+Answer:   
+	cccc
+
+cccc
+
+2. What is the main purpose of Comparator Interface?	
+	                   All of the listed options
+
+3.
+What is the return value of compareTo method?
+ 
+boolean
+
+
+4. What will be output of the following code:
+
+import java.util.Arrays;
+import java.util.Comparator;
+class Sort implements Comparator<Integer> {
+public int compare(Integer o1, Integer o2) {
+return o2.compareTo(o1);
+}
+}
+public class MyClass {
+public static void main(String args[]) {
+Integer intArray[] = {2,3,1};
+Arrays.sort(intArray,new Sort() );
+for(int i:intArray) {
+System.out.print(i+" ");
+}
+}
+}
+Answer:    3 2 1
+5.Consider the following code segment. What attribute is being compared?
+class Student implements Comparable{
+int rollno;
+String name;
+int age;
+Student(int rollno,String name,int age){
+this.rollno=rollno;
+this.name=name;
+this.age=age;
+}
+
+public int compareTo(Object obj){
+Student st=(Student)obj;
+if(age==st.age)
+return 0;
+else if(age>st.age)
+return 1;
+else
+return -1;
+}
+
+}
+Answer:   
+	age
+
+6. What is the purpose of Comparable Interface?
+
+ 
+All of the listed options 
+
+7. What will be output of the following code:
+import java.util.Arrays;
+import java.util.Comparator;
+class Sort implements Comparator<Integer> {
+public int compare(Integer o1, Integer o2) {
+return o1.compareTo(o2);
+}
+}
+
+public class MyClass {
+public static void main(String args[]) {
+
+Integer intArray[] = {2,3,1};
+Arrays.sort(intArray,new Sort() );
+for(int i:intArray) {
+System.out.print(i+" ");
+}
+}
+}
+Answer:   1 2 3
+8. Which collection class allows you to associate its elements with key values, and allows you to retrieve objects in FIFO (first-in, first-out) sequence?          
+	             java.util.LinkedHashMap
+
+9. What is the method present in Comparator Interface?	
+	             None of the listed options 
+
+10. Comparator is present in package?	
+	                   java.lang
+
+11. When does the compare method return a positive value?
+	if the first object that is passed as parameter is equal than the second object passed as parameter
+
+12.
+Which interface provides the capability to store objects using a key-value pair?
+ 
+java.util.Map
+
+
+13.
+What is the method present in Comparable Interface?
+ 
+compareTo
+
+
+14. When does the compareTo method return a positive value?	
+	        if the object that is passed as parameter is greater than the invoked object
+
+15.
+What is the return value of compare method?
+ 
+boolean
+
+
+
+
+SECTION 2
+1.	What is the default number of Partitions/segments in Concurrent Hash Map?
+16
+
+2.	The accuracy and efficiency of a HashMap can be guaranteed with _______
+		All of the listed options
+
+3. What is the output of the program?
+
+import java.util.HashMap;
+class Maps {
+    public static void main(String args[]) {
+        HashMap obj = new HashMap();
+        obj.put("A", new Integer(1));
+        obj.put("B", new Integer(2));
+        obj.put("C", new Integer(3));
+        System.out.println(obj.get("B"));
+    }
+}
+Answer:  2
+4.
+What is the output of this program?
+
+import java.util.HashMap;
+
+class Maps {
+    public static void main(String args[]) {
+        HashMap obj = new HashMap();
+        obj.put("A", new Integer(1));
+        obj.put("B", new Integer(2));
+        obj.put("C", new Integer(3));
+        System.out.println(obj.keySet());
+    }
+}
+
+Note : Answer is irrespective of order 
+ 
+[A,B,C] 
+
+
+
+5. Which of these object stores association between keys and values?
+	Map
+6.
+Which of these classes provide implementation of map interface?
+ 
+HashMap
+
+
+7.
+Which of these method is used add an element and corresponding key to a map?
+ 
+put
+
+
+8. Which of these method Map class is used to obtain an element in the map having specified key?
+	Get
+9. Which of these methods can be used to obtain set of all keys in a map?
+	
+	            keySet()
+
+10. How many functions are present in API through which we can add one or many key-value pairs?
+	3
+11. 
+A HashMap allows the existence of _____
+	All of the listed options
+
+12. Which of these method is used to remove all keys/values pair from the invoking map?	
+	                    remove
+
+13.
+What is the output of this program?
+
+import java.util.HashMap;
+class Maps {
+    public static void main(String args[]) {
+        HashMap obj = new HashMap();
+        obj.put("A", new Integer(1));
+        obj.put("B", new Integer(2));
+        obj.put("C", new Integer(3));
+        System.out.println(obj);
+    }
+}
+
+Note : Answer is irrespective of order 
+ 
+{A=1, B=2, C=3} 
+
+
+14. Which collection class allows you to associate its elements with key values, and allows you to retrieve objects in FIFO (first-in, first-out) sequence?	
+	java.util.LinkedHashMap
+
+15. Which does NOT implement the Collection interface?
+	Map
+
+File I/O Streams / Session 1
+1.	Which of these class is used to read from byte array?
+		ByteArrayInputStream 
+
+2.	What is the name of the abstract base class for streams dealing with character input?
+		Reader
+
+3. What is the output of this program?
+
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+public class Main {
+    public static void main(String[] args) {
+        String obj = "abc";
+        byte b[] = obj.getBytes();
+        ByteArrayInputStream obj1 = new ByteArrayInputStream(b);
+        for (int i = 0; i < 2; ++ i) {
+            int c;
+            while((c = obj1.read()) != -1) {
+                if(i == 0) {
+                    System.out.print(Character.toUpperCase((char)c));
+                    obj2.write(1);
+                }
+            }
+            System.out.print(obj2);
+        }
+    }
+}
+Answer:  
+	Compile Time Error 
+
+
+4.When comparing java.io.BufferedWriter and java.io.FileWriter, which capability exist as a method in only one of two ?
+	
+              	             writting a line separator to the stream
+
+
+5. 
+What is the output of this program?
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileSystemNotFoundException;
+class FilesInputOutput {
+    public static void main(String args[]) throws IOException,FileSystemNotFoundException {
+        InputStream obj = new FileInputStream("inputoutput.java");
+        System.out.print(obj.available());
+    }
+}
+Answer:   false
+
+6. Which of the following code snipet can be used to read data from file?
+a) BufferedReader reader = new BufferedReader(new FileReader(filePath))
+b) BufferedReader reader = new BufferedReader(new InputStreamReader(Files.newInputStream(filePath)))
+C) BufferedReader reader = new BufferedReader(new InputStreamReader(FileInputStream(new File(filePath)))
+	
+	         All a, b and c
+
+7. Which of these class contains the methods print() & println()?
+	 
+	PrintStream 
+
+8. Which stream is used to perform input and output of 16-bit unicode?	
+	Character Stream
+
+9. Which of the following are correct?
+a)A stream is a conceptually endless flow of data.
+b)We can't write in a stream.
+c)We can either read from a stream or write to a stream.
+d)We can't read from a stream.
+Answer:  
+	a and c
+
+10.
+Which of these methods closes this file input stream and releases any system resources associated with the stream.
+ 
+void close()
+
+
+11.
+Which exception is thrown by read() method?
+ 
+IOException
+
+
+12. Which of these methods ensures that the close method of this file input stream is called when there are no more references to it.	
+	       protected void finalize()
+
+13.
+Which of these class is used to read characters in a file?
+ 
+FileReader
+
+
+
+
+
+14.
+Which of these is used to perform all input & output operations in Java?
+ 
+streams
+
+
+SECTION 2
+1.	What value does readLine( ) return when it has reached the end of a file?
+-1
+2. 
+What is the output of this program?
+
+import java.io.File;
+
+class Files {
+    public static void main(String args[]) {
+        File obj = new File("/java/system");
+        System.out.print(obj.getParent());
+        System.out.print(" " + obj.isFile());
+    }
+}
+Answer:   
+	\java false 
+
+3.You execute the code below in an empty directory. What is the result?
+File f1 = new File("dirname");
+File f2 = new File(f1, "filename");
+Answer:  
+	No directory is created, and no file is created.
+
+4.
+Which one of these constructors creates a new File instance from a parent abstract pathname and a child pathname string?
+ 
+File(File parent, String child)
+
+
+5. Which of these is method for testing whether the specified element is a file or a directory?
+	isFile()
+
+6. How can you change the current working directory using an instance of the File class called FileName?	
+ 
+The File class does not support directly changing the current directory.
+
+7. try{
+File f = new File("a.txt");
+}catch(Exception e){
+}catch(IOException io){
+}
+Is this code create new file named a.txt ?
+Answer:  Compilation Error
+
+8. Which of these values is returned by read() method is end of file (EOF) is encountered?
+		-1
+9. Which of the following can you perform using the File class?
+a) Change the current directory
+b) Return the name of the parent directory
+c) Delete a file
+d) Find if a file contains text or binary information
+Answer:   b and c
+
+10. What is the output of this program?
+
+import java.io.File;
+class Files {
+    public static void main(String args[]) {
+        File obj = new File("/java/system");
+        System.out.print(obj.getName());
+    }
+}
+Answer:  system
+
+
+
+SECTION  3
+1.	Which stream is used to perform input and output of 16-bit unicode?
+	                Character Stream
+
+2.
+A simple text scanner which can parse primitive types and strings using ____________.
+ 
+Wrapper class
+
+
+3.
+A scanner can read text from any object which implements the _________ interface.
+ 
+Readable
+
+
+4.Which of the below is not an immediate sub class of OutputStream?
+     DataOutputStream
+
+5.
+What are the source and destinations of IO in java?
+a) Console
+b) File
+c) Network
+ 
+a and b
+
+
+6. Which method is not present in Scanner class?
+	
+	       nextChar()
+
+
+7. FileReader is a _________	
+	       Character Stream
+
+8. Which of the following is correct about byte streams?.
+a) Byte Stream could be used for all kind of data like images, files, networking operations.
+b) We should not use Byte Stream for the Streams that represent the character data.
+c) Byte streams can read or write the files containing ASCII characters.
+d) ByteStream is an abstrct class.
+Answer:  
+	a, b and c
+
+9. Which of the following is correct about buffered streams?.
+a) They internally uses buffer memory.
+b) In buffered streams each read or write request is handled directly by the underlying OS.
+c) Buffered Streams are efficient than unbuffered streams.
+d) Unbuffered Streams are efficient than Buffered streams.
+Answer:
+	a, b and c
+
+10.
+Which of the following is correct about flush() method?.
+ 
+Flushes the output stream and forces any buffered output bytes to be written out.
+ 
+
+
+11. DataInputStream is sub class of _____________?	
+	            FilterInputStream
+
+12.
+Which stream is support read and write opperations of primitive data type values?
+ 
+Buffered Streams
+
+
+13. Which of the below is not an immediate sub class of InputStream?	
+	           BufferedInputStream
+
+SECTION 4
+1.Which of these is a process of extracting/removing the state of an object from a stream?	
+	                Deserialization 
+
+
+2.	Number of methods need to override while implementing Serializable Interface
+2
+3,
+What is the output of this program?
+import java.io.*;
+class streams {
+public static void main(String[] args) {
+try {
+FileOutputStream fos = new FileOutputStream("serial");
+ObjectOutputStream oos = new ObjectOutputStream(fos);
+oos.writeFloat(3.5);
+oos.flush();
+oos.close();
+}
+catch(Exception e) {
+System.out.println("Serialization" + e);
+System.exit(0);
+}
+try {
+FileInputStream fis = new FileInputStream("serial");
+ObjectInputStream ois = new ObjectInputStream(fis);
+System.out.println(ois.available());
+}
+catch (Exception e) {
+System.out.print("deserialization");
+System.exit(0);
+}
+}
+}
+ 
+1
+ 
+ 
+
+
+
+4.Example for Marker Interface	
+	All of the listed options 
+
+5. What is Serialization?	
+	All of the listed options 
+
+
+6. which of the below method is not declared in Serializable Interface?
+	All of the listed options 
+
+7, Which of the following is correct about Marker Interface?.
+a) Marker Interface is empty Interface. (dont have any method declarations).
+b) Marker Interface is used to indicate something to compiler or JVM.
+Answer:   both a and b
+8. Which of these is an interface for control over serialization and deserialization?	
+	Externalization
+
+TREAD API SESSION 1
+1.	Predict the output of the program?
+class multithreaded_programing {
+public static void main(String args[]) {
+Thread t = Thread.currentThread();
+System.out.println(t.isAlive());
+}
+}
+Answer:  true
+2.
+Analyse the code
+public class Test implements Runnable{
+public static void main(String[] args){
+Test t = new Test();
+t.start();
+}
+
+public void run() { }
+}
+ 
+The program compiles, but it does not run because the start() method is not defined.
+ 
+
+
+3.What is minimum thread priority in java?
+1
+
+
+4.
+Which of these method of Thread class is used to Suspend a thread for a period of time?
+ 
+sleep()
+
+
+5. Predict the output
+class One extends Thread{
+public void run(){
+for(int i=0; i<2; i++){
+System.out.print(i);
+}
+}
+}
+
+public class Test{
+public static void main(String args[]){
+Test t = new Test();
+t.call(new One());
+}
+
+public void call(One o){
+o.start();
+}
+}
+Answer:  0  1
+6. Which method brings alive a thread?
+	Run
+7.
+What is maximum thread priority in java?
+ 
+10
+
+
+8. Which of the following constructor of class Thread is valid one?	
+	Thread(String threadName, int priority)
+
+
+
+9. What are valid point about processes?
+	
+	All of the listed options
+
+10. What are the valid points about thread?
+	All of the listed options
+
+11.
+Predict the output?
+class A implements Runnable{
+public void run(){
+System.out.println("run-a");
+}
+}
+public class Test{
+public static void main(String... args){
+A a = new A();
+Thread t = new Thread(a);
+t.start();
+t.start();
+}
+}
+ 
+run-a
+
+
+12. Which of these class is used to make a thread?
+	Thread
+13.
+Predict the output
+public class Test extends Thread{
+public static void main(String argv[]){
+Test t = new Test();
+t.run();
+t.start();
+}
+public void run(){
+System.out.println("run-test");
+}
+}
+ 
+run-test
+
+
+14. Which are true about threads?
+	ALL the listed options
+15. Analyze the following code:
+public class Test implements Runnable{
+public static void main(String[] args){
+Test t = new Test();
+}
+
+public Test(){
+Thread t = new Thread(this);
+t.start();
+}
+
+public void run(){
+System.out.println("test");
+}
+}
+Answer: 
+	The program compiles and runs and displays test.
+
+16. Which are true about threads?
+	ALL the listed options
+17How many threads can a process contain?
+	Multiple
+18.
+Which of these interface is implemented by Thread class?
+ 
+Runnable
+
+
+19. What are valid point about processes?	
+	All of the listed options
+
+
+20. What is true about threads?
+ALL the listed options
+
+21. What is difference between starting thread with run() and start() method?
+	None of the listed options
+22.
+What will be the output of the following program code?
+public class Test implements Runnable{
+public static void main(String[] args){
+Test t = new Test(this);
+t.start();
+}
+
+public void run(){
+System.out.println("test");
+}
+}
+ 
+The program does not compile because this cannot be referenced in a static method.
+ 
+
+
+23. What is the output of the program?
+
+class Main{
+  public static void main(String args[]) {
+     Thread t = Thread.currentThread();
+     t.setName("New Thread");
+    System.out.println(t);
+  }
+}
+Answer:  
+	Thread[New Thread,5,main]
+
+24, What is default priority of thread?
+Answer  5
+25.
+What state does Thread enter in when it has been created and started?
+ 
+New
+
+
+26
+Which of these method of Thread class is used to find out the priority given to a thread?
+ 
+getPriority()
+
+
+
+Jdbc session 1
+1.	Which of the following is correct about Statement?
+		All of the listed options
+
+2.	Which of the following type of JDBC driver should be used if your Java application is accessing multiple types of databases at the same time?
+		Type3
+
+3.
+Which of the following type of JDBC driver, is also called Type 1 JDBC driver?
+ 
+JDBC-ODBC Bridge plus ODBC driver
+
+
+
+4.Which of the following required to be closed to close database operations?
+
+	All of the listed options 
+
+5.what is jdbc?
+	
+	JDBC is a standard Java API for database-independent connectivity between the Java programming language and a wide range of databases.
+
+6. Which of the following is true about JDBC?
+	                All of the listed options 
+
+
+
+
+
+7. Which of the following is not the standard isolation levels defined by JDBC?	
+	TRANSACTION_WRITE_UNCOMMITTED
+
+8. Which of the following is correct about driver interface of JDBC?
+	Both A  and B
+9. Which of the following is generally used for altering the databases?	
+ 
+int executeUpdate()
+
+10.
+Which of the following holds data retrieved from a database after you execute an SQL query using Statement objects?
+ 
+ResultSet
+
+
+11,
+The JDBC API provides the abstraction and the JDBC drivers provide the implementation.
+ 
+true
+
+
+12.
+State True or False
+You can open only one Statement object per connection when you are using the JDBC-ODBC Bridge.
+ 
+true
+
+
+13. Which packages contain the JDBC classes?	
+
+ 
+java.sql and javax.sql
+
+
+
+
+
+14. Which type of driver converts JDBC calls into the network protocol used by the database management system directly?	
+
+ 
+Type 3 driver
+
+
+15. Which of the following is true about JNDI?	
+	All of the listed options 
+
+
+16. What happens if you call deleteRow() on a ResultSet object?	
+
+ 
+The row you are positioned on is deleted from the ResultSet and from the database
+
+
+17. Which of the following is correct about transactions in JDBC?	
+	All of the listed options 
+
+18.
+Which of the following executes the any kind of SQL statement?
+ 
+boolean execute()
+
+
+19. What happens if you call the method close() on a ResultSet object?
+	What happens if you call the method close() on a ResultSet object?
+20. Which of the following is not a component/class of JDBC API?	
+	                ConnectionPool
+
+21 Which of the following methods are needed for loading a database driver in JDBC?	
+	C.Both A and B
+
+
+
+22 Which of the following type of JDBC driver, uses database native protocol?	
+	Native-protocol, pure Java driver
+
