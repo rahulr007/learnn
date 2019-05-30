@@ -262,3 +262,35 @@ end;
 /
 
 
+____
+
+create or replace procedure display_release(val in number )
+is
+                cursor c is select movie_name from movie_release
+                where extract(year from movie_rldate)=val;
+                tmp movie_release%rowtype;
+begin     
+                for tmp in c
+                loop
+                dbms_output.put_line('movie_name:'||tmp.movie_name);
+                end loop;
+
+end;
+/
+
+____
+Get movie name
+
+create or replace procedure getname(m_actor in movie.movieactor%type)
+is
+cursor c is select moviename from movie where movieactor=m_actor;
+begin
+  for m_name in c
+  loop
+  dbms_output.put_line('Movie  '||m_name.moviename);
+  end loop;
+end;
+/
+
+
+
