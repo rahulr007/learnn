@@ -1,0 +1,1050 @@
+
+JDBC PreparedStatement L2C
+
+SESSION 1
+1.
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
+import java.text.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException, ParseException, SQLException, ClassNotFoundException {
+
+      BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      Date gameDate;
+      System.out.println("Enter the game date:");
+      gameDate = sdf.parse(inp.readLine());
+      GameDAO gameDAO = new GameDAO();
+      List<Game> gameList=gameDAO.listOrders(gameDate);
+
+   Iterator it=gameList.iterator();
+   while(it.hasNext())
+   {
+       Game g=(Game)it.next();
+       System.out.println(g.getTeam1().getTeamName()+" Vs "+g.getTeam2().getTeamName());
+   }
+}
+}
+
+
+import java.util.*;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class GameDAO {
+  
+  
+      List<Game> listOrders(Date gameDate) throws SQLException,ClassNotFoundException      {
+
+              Connection con = null;
+
+              ResourceBundle rb = ResourceBundle.getBundle("mysql");
+              String url = rb.getString("db.url");
+              String user = rb.getString("db.username");
+              String pass = rb.getString("db.password");
+
+                      try {
+                          Class.forName("com.mysql.jdbc.Driver");
+                      } catch (ClassNotFoundException ex) {
+                          Logger.getLogger(GameDAO.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+              con = DriverManager.getConnection(url,user,pass);
+              java.sql.Date sqlDate = new java.sql.Date(gameDate.getTime());
+          
+              List<Game> gameList=new ArrayList<Game>();
+PreparedStatement stmt=con.prepareStatement("select game_date,team_id_1,team_id_2 from game where game_date=?");
+stmt.setDate(1,sqlDate);
+              ResultSet rs=stmt.executeQuery();
+              while(rs.next())
+              {
+                  TeamDAO td=new TeamDAO();
+                  Team t1=td.getTeamByID(rs.getLong(2));
+                  Team t2=td.getTeamByID(rs.getLong(3));
+                  gameList.add(new Game(gameDate,t1,t2));
+              }
+              return gameList;
+    }
+}
+
+
+
+import java.util.*;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+
+
+public class TeamDAO {
+                public Team getTeamByID(Long id) throws ClassNotFoundException, SQLException {
+                        ResourceBundle rb= ResourceBundle.getBundle("mysql");
+                        
+                        String url=rb.getString("db.url");
+                        String user=rb.getString("db.username");
+                        String pass=rb.getString("db.password");
+                        Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url,user,pass);
+      Team t=null;
+      PreparedStatement stmt=con.prepareStatement("select id,name from team where id=?");
+      stmt.setLong(1,id);
+      ResultSet rs=stmt.executeQuery();
+      while(rs.next())
+      {
+          t=new Team(rs.getLong(1),rs.getString(2));
+      }
+      return t;
+   }
+}
+
+
+   
+2.
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
+import java.util.List;
+
+public class Main {
+
+
+  public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
+      Team team = new Team();
+      TeamDAO teamDAO = new TeamDAO();
+      System.out.println("Team List");
+      List<Team> teamList = teamDAO.getAllTeams();
+      teamDAO.displayTeams(teamList);
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      System.out.println("Enter the teamname you want update");
+      String name = br.readLine();
+      System.out.println("Enter the new coachname you want update");
+      String coach = br.readLine();
+      teamDAO.updateTeamDetails(name,coach);
+      System.out.println("Updated team list");
+
+      List<Team> teamList1= teamDAO.getAllTeams();
+      teamDAO.displayTeams(teamList1);
+}
+}
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+
+public class TeamDAO {
+
+
+public List<Team> getAllTeams() throws ClassNotFoundException, SQLException {
+      
+       List<Team>Al=new ArrayList();
+       Team team=null;
+      try
+      {
+  
+          ResourceBundle rb= ResourceBundle.getBundle("mysql");
+          
+          String url=rb.getString("db.url");
+          String user=rb.getString("db.username");
+          String pass=rb.getString("db.password");
+          Class.forName("com.mysql.jdbc.Driver");
+          Connection con = DriverManager.getConnection(url,user,pass);
+
+          String qry="Select name,coach from team";
+          Statement stmt=con.createStatement();
+          ResultSet rs=stmt.executeQuery(qry);
+          while(rs.next()) {
+                String name=rs.getString(1);
+                String coach=rs.getString(2);
+                Al.add(new Team(name,coach));
+          }
+                
+                 }catch(Exception E) {
+                                System.out.println("Error : "+E);
+                }
+
+    return Al;
+  }
+  
+  public void updateTeamDetails(String name,String coach) throws ClassNotFoundException, SQLException {
+    
+                  ResourceBundle rb= ResourceBundle.getBundle("mysql");
+      
+      String url=rb.getString("db.url");
+      String user=rb.getString("db.username");
+      String pass=rb.getString("db.password");
+      Class.forName("com.mysql.jdbc.Driver");
+      Connection con = DriverManager.getConnection(url,user,pass);
+      
+      String qry="Update team set coach=? where name=?";      
+     
+      PreparedStatement ps=con.prepareStatement(qry);
+      ps.setString(1,coach);
+      ps.setString(2,name);
+      ps.executeUpdate();
+      con.close();       
+}
+
+  public static void displayTeams(List<Team> teamList){
+      System.out.format("%-30s %-15s\n","Name","Coach"); 
+      for(Team t:teamList) {
+                                
+                                System.out.format("%-30s %-15s\n",t.getTeamName(),t.getCoachName());
+                }
+
+
+  }
+  
+}
+
+
+
+3.
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+
+
+public class Main {
+
+                
+                  public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException, ParseException {
+                      Game team = new Game();
+                      GameDAO gameDAO = new GameDAO();
+                      System.out.println("Game List");
+                      List<Game> gameList = gameDAO.getAllGameDetails();
+                      gameDAO.displayGame(gameList);
+                      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                     
+                      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                      Date gameDate;
+
+                      System.out.println("Enter the game date:");
+                      gameDate = sdf.parse(br.readLine());
+                     
+                      System.out.println("Enter the teams to be updated");
+                      String team1= br.readLine();
+                      String team2= br.readLine();
+                      gameDAO.updateTeamDetails(gameDate,team1,team2);
+                      System.out.println("Updated game list");
+                     
+         List<Game> g=gameDAO.getAllGameDetails();
+         gameDAO.displayGame(g);
+}
+}
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+
+
+
+public class GameDAO {
+
+                
+
+public List<Game> getAllGameDetails() throws ClassNotFoundException, SQLException {
+
+       List<Game>Al=new ArrayList();
+       Game game=null;
+      try
+      {
+             
+          ResourceBundle rb= ResourceBundle.getBundle("mysql");
+          
+          String url=rb.getString("db.url");
+          String user=rb.getString("db.username");
+          String pass=rb.getString("db.password");
+          Class.forName("com.mysql.jdbc.Driver");
+          Connection con = DriverManager.getConnection(url,user,pass);
+          Statement st=con.createStatement();
+          ResultSet rs=st.executeQuery("select game_date,team_id_1,team_id_2 from game");
+          TeamDAO TD=new TeamDAO();
+          while(rs.next())
+          {
+              Team T1=TD.getTeamByID(rs.getLong(2));
+              Team T2=TD.getTeamByID(rs.getLong(3));
+              SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+              String da=sdf.format(rs.getDate(1));
+              Al.add(new Game(da,T1,T2));
+          }
+         
+      }catch(Exception e)
+      {
+          System.out.println(e);
+      }
+        
+ return Al;
+
+  }
+  
+  public void updateTeamDetails(Date gameDate,String team1,String team2) throws ClassNotFoundException, SQLException, ParseException {
+    
+                  ResourceBundle rb= ResourceBundle.getBundle("mysql");
+      
+      String url=rb.getString("db.url");
+      String user=rb.getString("db.username");
+      String pass=rb.getString("db.password");
+      Class.forName("com.mysql.jdbc.Driver");
+      Connection con = DriverManager.getConnection(url,user,pass);
+      PreparedStatement ps=con.prepareStatement("update game set team_id_1=?,team_id_2=? where game_date=?");
+      TeamDAO td=new TeamDAO();
+      Team t1=td.getTeamByName(team1);    
+        Team t2=td.getTeamByName(team2);    
+     long tid1=t1.getTeamId();
+     long tid2=t2.getTeamId(); 
+      ps.setLong(1,tid1);
+      ps.setLong(2,tid2);
+      java.sql.Date sqlDate=new java.sql.Date(gameDate.getTime());
+      ps.setDate(3,sqlDate);
+      ps.executeUpdate();
+      con.close();
+  }
+  public static void displayGame(List<Game> gameList){
+      System.out.format("%-15s %-30s %-30s\n","Game Date","Team 1","Team 2"); 
+
+        for(Game g:gameList)
+        {
+            System.out.format("%-15s %-30s %-30s\n",g.getGameDate(),g.getTeam1().getTeamName(),g.getTeam2().getTeamName()); 
+        }
+    
+
+      }
+  
+                
+                
+}
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+
+
+
+public class TeamDAO{
+                
+public Team getTeamByID(Long id) throws ClassNotFoundException, SQLException {
+    ResourceBundle rb= ResourceBundle.getBundle("mysql");
+    
+    String url=rb.getString("db.url");
+    String user=rb.getString("db.username");
+    String pass=rb.getString("db.password");
+    Class.forName("com.mysql.jdbc.Driver");
+    Team T=null;
+    Connection con = DriverManager.getConnection(url,user,pass);
+    PreparedStatement ps=con.prepareStatement("select id,name from team where id=?");
+    ps.setLong(1,id);
+    ResultSet rs=ps.executeQuery();
+    if(rs.next())
+    {
+        T=new Team(rs.getLong(1),rs.getString(2));
+    }
+    
+     return T;
+
+}
+
+public Team getTeamByName(String name) throws ClassNotFoundException, SQLException {
+    ResourceBundle rb= ResourceBundle.getBundle("mysql");
+    
+    String url=rb.getString("db.url");
+    String user=rb.getString("db.username");
+    String pass=rb.getString("db.password");
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection con = DriverManager.getConnection(url,user,pass);
+    
+    Team T=null;   
+    PreparedStatement ps=con.prepareStatement("select id,name from team where name=?");
+    ps.setString(1,name);
+    ResultSet rs=ps.executeQuery();
+    if(rs.next())
+    {
+        T=new Team(rs.getLong(1),rs.getString(2));
+    }
+    
+     return T;
+}
+}
+
+
+
+SESSION 2
+
+1.
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class GameDAO {
+  
+  
+      List<Game> listGame(Date gameDate) throws SQLException
+      {
+
+              Connection con = null;
+              ResourceBundle rb = ResourceBundle.getBundle("mysql");
+              String url = rb.getString("db.url");
+              String user = rb.getString("db.username");
+              String pass = rb.getString("db.password");
+
+                      try {
+                          Class.forName("com.mysql.jdbc.Driver");
+                      } catch (ClassNotFoundException ex) {
+                          Logger.getLogger(GameDAO.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+              con = DriverManager.getConnection(url,user,pass);
+          
+          java.sql.Date sqlDate = new java.sql.Date(gameDate.getTime());
+              List<Game> gameList=new ArrayList<Game>();
+              PreparedStatement stmt=con.prepareStatement
+("select g.outcome_id,o.winner_team_id,t.name from game g,outcome o,team t where g.game_date='"+sqlDate+"' and g.outcome_id=o.id and o.winner_team_id=t.id");
+              ResultSet rs=stmt.executeQuery();
+              while(rs.next())
+              {
+                  gameList.add(new Game(gameDate,new OutCome(rs.getLong(1),new Team(rs.getLong(2),rs.getString(3)))));
+              }
+              return gameList;
+
+      
+      }
+  }
+
+
+
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+
+public class TeamDAO {
+    public Team getTeamByID(Long id) throws ClassNotFoundException, SQLException {
+      ResourceBundle rb= ResourceBundle.getBundle("mysql");
+      String url=rb.getString("db.url");
+      String user=rb.getString("db.username");
+      String pass=rb.getString("db.password");
+      Class.forName("com.mysql.jdbc.Driver");
+      Connection con = DriverManager.getConnection(url,user,pass);
+     
+      Team t=null;
+      PreparedStatement stmt=con.prepareStatement("select id.name from team where id="+id);
+      ResultSet rs=stmt.executeQuery();
+      whilr(rs.next())
+      {
+          t=new Team(rs.getLong(1).rs.getString(2));
+      }
+      return t;
+  }
+}
+
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+
+public class OutComeDAO {
+  
+  
+    public OutCome getOutComeByID(Long id) throws ClassNotFoundException, SQLException {
+      ResourceBundle rb= ResourceBundle.getBundle("mysql");
+      
+      String url=rb.getString("db.url");
+      String user=rb.getString("db.username");
+      String pass=rb.getString("db.password");
+      Class.forName("com.mysql.jdbc.Driver");
+      Connection con = DriverManager.getConnection(url,user,pass);
+   
+      OutCome o=null;
+      PreparedStatement stmt=con.prepareStatement("select outcome.id,outcome.winner_team_id,team.name from outcome,team where outcome.winner_team_id=team.id and team.id="+id);
+      ResultSet rs=stmt.executeQuery();
+      whilr(rs.next())
+      {
+          o=new OutCome(rs.getLong(1),new Team(rs.getLong(2),rs.getString(3)));
+      }
+      return o;
+
+
+  }
+}
+
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
+import java.text.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException, ParseException, SQLException, ClassNotFoundException {
+
+      BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      Date gameDate;
+
+      System.out.println("Enter the StartDate:");
+      gameDate = sdf.parse(inp.readLine());
+     
+      GameDAO gameDAO = new GameDAO();
+      
+      List<Game> gameList = gameDAO.listGame(gameDate);
+      System.out.println("Winner Team");
+  
+   Iterator it=gameList.iterator();
+   while(it.hasNext())
+   {
+       Game g=(Game)it.next();
+       System.out.println(g.getOutcome().getWinnerTeam().getTeamName());
+   }
+
+}
+
+}
+
+      
+     
+2.
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
+import java.text.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException, ParseException, SQLException, ClassNotFoundException {
+
+      BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      Date gameDate;
+
+      System.out.println("Enter the game date:");
+      gameDate = sdf.parse(inp.readLine());
+
+      GameDAO gameDAO = new GameDAO();
+
+
+
+      List<Game> gameList = gameDAO.listGame(gameDate);
+      System.out.println("Venue alloted :");
+    
+         
+  
+   Iterator it=gameList.iterator();
+   while(it.hasNext())
+   {
+       Game g=(Game)it.next();
+       System.out.println(g.getVenue().getVenueName());
+   }
+}
+
+}
+
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class GameDAO {
+
+
+      List<Game> listGame(Date gameDate) throws SQLException      {
+
+              Connection con = null;
+
+              ResourceBundle rb = ResourceBundle.getBundle("mysql");
+              String url = rb.getString("db.url");
+              String user = rb.getString("db.username");
+              String pass = rb.getString("db.password");
+
+                      try {
+                          Class.forName("com.mysql.jdbc.Driver");
+                      } catch (ClassNotFoundException ex) {
+                          Logger.getLogger(GameDAO.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+              con = DriverManager.getConnection(url,user,pass);
+
+                      java.sql.Date sqlDate = new java.sql.Date(gameDate.getTime());
+              List<Game> gameList=new ArrayList<Game>();
+              PreparedStatement stmt=con.prepareStatement
+("select v.id,v.name from game g,venue v where g.game_date='"+sqlDate+"' and g.venue_id=v.id");
+              ResultSet rs=stmt.executeQuery();
+              while(rs.next())
+              {
+                  gameList.add(new Game(gameDate,new Venue(rs.getLong(1),rs.getString(2))));
+              }
+              return gameList;
+
+
+      }
+  }
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+
+
+public class VenueDAO {
+public Venue getVenueByID(Long id) throws ClassNotFoundException, SQLException {
+ResourceBundle rb= ResourceBundle.getBundle("mysql");
+
+String url=rb.getString("db.url");
+String user=rb.getString("db.username");
+String pass=rb.getString("db.password");
+Connection con = DriverManager.getConnection(url,user,pass);
+
+
+   //fill your code
+
+   }
+}
+
+
+
+3.
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+
+
+
+public class VenueDAO{
+                
+public Venue getVenueByID(Long id) throws ClassNotFoundException, SQLException {
+    ResourceBundle rb= ResourceBundle.getBundle("mysql");
+    Venue obj=new Venue();
+    String url=rb.getString("db.url");
+    String user=rb.getString("db.username");
+    String pass=rb.getString("db.password");
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection con = DriverManager.getConnection(url,user,pass);
+    
+    String qry="Select name from venue where id='"+id+"'";
+    Statement stmt=con.createStatement();
+    ResultSet rs=stmt.executeQuery(qry);
+    while(rs.next())
+    {
+        obj=new Venue(id,rs.getString(1));
+    }
+return obj;
+}
+
+public Venue getVenueByName(String name) throws ClassNotFoundException, SQLException {
+    ResourceBundle rb= ResourceBundle.getBundle("mysql");
+    Venue obj=new Venue();
+    String url=rb.getString("db.url");
+    String user=rb.getString("db.username");
+    String pass=rb.getString("db.password");
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection con = DriverManager.getConnection(url,user,pass);
+
+    String qry="Select id from venue where name='"+name+"'";
+    Statement stmt=con.createStatement();
+    ResultSet rs=stmt.executeQuery(qry);
+    while(rs.next())
+    {
+        long id=(long)rs.getInt(1);
+        obj=new Venue(id,name);
+    }
+return obj;
+
+}
+
+}
+
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+
+
+public class Main {
+
+                
+                  public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException, ParseException {
+                      Game team = new Game();
+                      GameDAO gameDAO = new GameDAO();
+                      System.out.println("Game List");
+                      List<Game> gameList = gameDAO.getAllGameDetails();
+                      gameDAO.displayGame(gameList);
+                      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                     
+                      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                      Date gameDate;
+
+                      System.out.println("Enter the game date:");
+                      gameDate = sdf.parse(br.readLine());
+                     
+                      System.out.println("Enter the venue to be updated");
+                      String venue= br.readLine();
+                      gameDAO.updateVenueDetails(gameDate,venue);
+                      System.out.println("Updated game list");
+                     
+         
+
+
+List<Game> gameList1 = gameDAO.getAllGameDetails();
+          gameDAO.displayGame(gameList1);
+                  }
+                  
+
+                  
+                }
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+
+
+
+public class GameDAO {
+
+                
+
+public List<Game> getAllGameDetails() throws ClassNotFoundException, SQLException {
+
+       List<Game>Al=new ArrayList();
+       Game game=null;
+      try
+      {
+             
+          ResourceBundle rb= ResourceBundle.getBundle("mysql");
+          
+          String url=rb.getString("db.url");
+          String user=rb.getString("db.username");
+          String pass=rb.getString("db.password");
+          Class.forName("com.mysql.jdbc.Driver");
+          Connection con = DriverManager.getConnection(url,user,pass);
+       
+          VenueDAO VD=new VenueDAO();
+           String qry="Select game_date,venue_id from game";
+          Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery(qry);
+          while(rs.next())
+          {
+              Venue V=VD.getVenueByID(rs.getLong(2));
+             
+              SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+              String da=sdf.format(rs.getDate(1));
+              Al.add(new Game(da,V));
+          }
+         
+      
+
+         /* //fill your code
+          String qry="Select game_date,venue_id from game";
+          Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery(qry);
+       while(rs.next())
+    {
+        long id=(long)rs.getInt();
+        String name=rs.getString(2);
+        String gameDate=rs.getString(3);
+        game=new Game();
+        
+        VenueDAO venuedao=new VenueDAO();
+         Venue venue=new Venue();
+         venue=venuedao.getVenueByID(id1);
+         Al.add(new Game(id,name,venue));
+    }*/
+  }
+  catch(Exception E)
+  {
+      System.out.println("Error : "+E);
+  }
+  return Al;
+}
+  
+  public void updateVenueDetails(Date gameDate,String venue) throws ClassNotFoundException, SQLException, ParseException {
+    
+                  ResourceBundle rb= ResourceBundle.getBundle("mysql");
+      
+      String url=rb.getString("db.url");
+      String user=rb.getString("db.username");
+      String pass=rb.getString("db.password");
+      Class.forName("com.mysql.jdbc.Driver");
+      Connection con = DriverManager.getConnection(url,user,pass);
+     
+      VenueDAO venueIns=new VenueDAO();
+      Long venueId=venueIns.getVenueByName(venue).getVenueId();
+      PreparedStatement ps=con.prepareStatement("update game set venue_id=? where game_date=?");
+      java.sql.Date sqlDate = new java.sql.Date(gameDate.getTime());
+      ps.setLong(1,venueId);
+      ps.setDate(2,sqlDate);
+      ps.executeUpdate();
+      con.close();
+
+  }
+  public static void displayGame(List<Game> gameList){
+      System.out.format("%-15s %-30s\n","Game Date","Venue"); 
+
+     for(Game g:gameList)
+{
+      System.out.format("%-15s %-30s\n",g.getGameDate(),g.getVenue().getVenueName());
+}
+  }
+
+                
+                
+}
+_________________________________________________________________________________
+
+import java.util.*;
+import java.sql.*;
+public class JdbcSample3 {
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+       
+       Scanner sc=new Scanner(System.in);
+       ArrayList<Moviedetails> al=new ArrayList<Moviedetails>();
+       System.out.println("Enter the count");
+       int count=sc.nextInt();
+       System.out.println("Enter the details");
+       for(int i=0;i<count;i++)
+       {
+           Moviedetails m= new Moviedetails();
+           String s=sc.next();
+           String s1[]=s.split(",");
+           if(s1[0].matches("[0-9]"))
+           {
+               Integer num=Integer.parseInt(s1[0]);
+               int val=(int)num;
+               m.setMv_id(val);
+           }
+           else
+           {
+               System.out.println("Invalid id");
+               break;
+           }
+           if(s1[1].matches("[a-zA-Z]"))
+           {
+               m.setMv_name(s1[1]);
+               
+           }
+           else
+           {
+               System.out.println("Invalid name");
+               break;
+           }
+           if(s1[2].matches("[a-zA-Z]"))
+           {
+               m.setMv_actor(s1[2]);
+               
+           }else
+           {
+               System.out.println("Invalid actor");
+               break;
+           }
+           al.add(m);
+           
+       }
+       MoviedetailsDAO dao=new MoviedetailsDAO();
+       dao.insertDetails(al);
+       
+    }
+
+}
+
+
+public class Moviedetails {
+    int mv_id;
+    String mv_name;
+    String mv_actor;
+    public int getMv_id() {
+       return mv_id;
+    }
+    public void setMv_id(int mv_id) {
+       this.mv_id = mv_id;
+    }
+    public String getMv_name() {
+       return mv_name;
+    }
+    public void setMv_name(String mv_name) {
+       this.mv_name = mv_name;
+    }
+    public String getMv_actor() {
+       return mv_actor;
+    }
+    public void setMv_actor(String mv_actor) {
+       this.mv_actor = mv_actor;
+    }
+    
+
+}
+
+
+import java.sql.*;
+
+public class DBConnection2 {
+    public static Statement getConnection() throws ClassNotFoundException, SQLException 
+    {
+       Class.forName("com.mysql.jdbc.Driver");
+       Connection x=DriverManager.getConnection("jdbc:mysql://localhost:3306/naveen", "root", "root");
+           Statement st=x.createStatement();
+           return st;
+    }
+}
+
+import java.util.*;
+import java.sql.*;
+public class MoviedetailsDAO {
+    Statement st=null;
+    public MoviedetailsDAO() throws ClassNotFoundException, SQLException {
+       this.st =DBConnection2.getConnection();
+    }
+    public void insertDetails(ArrayList<Moviedetails> al) throws SQLException {
+       Iterator<Moviedetails> itr=al.iterator();
+       while(itr.hasNext())
+       {
+           Moviedetails m=itr.next();
+           st.execute("insert into moviedetails values("+m.getMv_id()+",'"
+                   +m.getMv_name()+"','"+m.getMv_actor()+"')");   
+       }
+       
+    }
+}
+
+Java SQL
+import java.sql.*;
+import java.util.*;
+public class JdbcExample {
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException
+    {
+       // TODO Auto-generated method stub
+       Class.forName("com.mysql.jdbc.Driver");
+       Scanner sc=new Scanner(System.in);
+       Connection x=DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "root");
+       Statement st=x.createStatement();
+       int id=sc.nextInt();
+       String name=sc.next();
+       String act=sc.next();
+       
+       st.execute("insert into movie values("+id+",'"+name+"','"+act+"')");
+       st.close();
+       x.close();
+       
+    }
+
+}
+
+
+
+
