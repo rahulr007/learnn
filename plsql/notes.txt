@@ -1,0 +1,264 @@
+Word count
+create or replace procedure wordcount(str varchar2)
+is
+t varchar2(20);
+cn number:=0;
+begin
+  for i in 1..length(str) loop
+    t:=substr(str,i,1);
+    if(t=' ') then
+      cn:=cn+1;
+    end if;
+  end loop;
+dbms_output.put_line(cn+1);
+end;
+/
+
+create or replace procedure wordcount(str varchar2)
+is
+t varchar2(20);
+cn number:=0;
+begin
+  for i in 1..length(str) loop
+    t:=substr(str,i,1);
+    if(t=' ') then
+      cn:=cn+1;
+    end if;
+  end loop;
+dbms_output.put_line(cn+1);
+end;
+/
+
+
+
+Sum of even numbers/Sum of odd numbers
+ create or replace procedure sumofodd(num1 in number,num2 in number)
+is
+sumeven number:=0;
+sumodd number:=0;
+begin
+  for i in num1..num2 loop
+     if(mod(i,2)=0) then
+        sumeven:=sumeven+i;
+     else
+        sumodd:=sumodd+i;
+     end if;
+  end loop;
+dbms_output.put_line('sum of even: '||sumeven);
+dbms_output.put_line('sum of odd: '||sumodd);
+end;
+/
+
+
+
+Number Palindrome 
+create or replace procedure palindrome(a in number) is
+num number;
+sum1 number:=0;
+temp number;
+begin
+                temp:=a;
+                while(temp>0)
+                loop
+                                num:=mod(temp,10);
+                                sum1:=sum1*10+num;
+                                temp:=trunc(temp/10);
+                end loop;
+                if(sum1 = a) then
+                                dbms_output.put_line('palindrome');
+                else
+                                dbms_output.put_line('not palindrome');
+                end if;
+end;
+/
+
+
+
+Palindrome number
+ create or replace function pal(n in number)return varchar2
+is
+i number;
+sum1 number:=0;
+rev number;
+temp number:=n;
+begin
+for i in 1..length(n) loop
+rev :=mod(temp,10);
+sum1:=(sum1*10)+rev;
+temp :=trunc(temp/10);
+end loop;
+if sum1 = n then
+return 'true';
+else
+return 'false';
+end if;
+end;
+/
+
+
+
+count upper and lower case
+declare
+str varchar2(20):='&str';
+upper number:=0;
+lower number:=0;
+s varchar2(20);
+begin
+for i in 1..length(str)
+loop
+s:=substr(str,i,1);
+if (s>='A' and s<='Z') then
+upper:=upper+1;
+elsif (s>='a' and s<='z')  then
+lower:=lower+1;
+end if;
+end loop;
+dbms_output.put_line(upper);
+dbms_output.put_line(lower);
+end;
+/
+
+Sum of natural numbers
+
+create or replace procedure sum(n in number)
+is
+s number:=0;
+i number;
+begin
+for i in 1..n
+loop
+s:=s+i;
+end loop;
+end;
+/
+
+
+concat
+create or replace function con(s in varchar2,s1 in varchar2)return varchar2
+is 
+s2 varchar2(100);
+begin
+s2:=s2||s||s1;
+return s2;
+end;
+/
+
+
+
+factorial
+create or replace function fac (n in number)return number
+is
+i number;
+facno number;
+begin
+for i in 1..n loop
+facno := facno*i;
+end loop;
+return facno;
+end;
+/
+
+
+
+Number of words in plsql
+create or replace function words(str in varchar2) return number is
+c number:=0;
+i number;
+s char;
+begin
+for i in 1..length(str)
+loop
+s:=substr(str,i,1);
+if s=' 'then
+c:=c+1;
+end if;
+end loop;
+return c;
+
+end;
+/
+
+
+Reverse a String
+
+create or replace function try_rev(val_1 in varchar) return varchar is
+l VARCHAR2(20);  
+    t VARCHAR2(10);  
+   begin
+    FOR i IN REVERSE 1..Length(val_1) 
+         LOOP  
+        l := Substr(val_1, i, 1);  
+        t := t || l;  
+    END LOOP;  
+    return (t);
+    exception
+    when others then
+    return 
+         null;
+    end;
+    /
+
+
+
+
+Number of words in plsql
+create or replace function words(str in varchar2) return number is
+c number:=0;
+i number;
+s char;
+begin
+for i in 1..length(str)
+loop
+s:=substr(str,i,1);
+if s=' 'then
+c:=c+1;
+end if;
+end loop;
+return c;
+
+end;
+/
+
+
+Palindrome plsql(simpler version) from moorthi
+
+create or replace procedure palindrome (a in varchar)
+is  
+ l VARCHAR2(20);  
+    t VARCHAR2(10);  
+BEGIN 
+    FOR i IN REVERSE 1..Length(a) 
+LOOP  
+        l := Substr(a, i, 1);  
+  
+       
+        t := t || l;  
+    END LOOP;  
+  
+    IF t = a THEN 
+      dbms_output.Put_line(t  ||' is palindrome');  
+    ELSE 
+      dbms_output.Put_line(t  ||' is not palindrome');  
+    END IF;  
+END; 
+/
+show errors;
+
+
+
+trigger example
+
+create or replace trigger day_holiday
+before insert 
+on bank
+begin
+
+    if (to_char(sysdate,'fmday') = 'wednesday')  then
+    raise_application_error(-20000,'ikidyounot, today was - ' || to_char(sysdate, 'day'));
+    else
+                dbms_output.put_line('inserted');
+    end if;
+end;
+/
+
+
